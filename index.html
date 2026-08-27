@@ -1,0 +1,2281 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MDM Agency — Social Media Marketing Agency</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            blue: '#007AFF',
+                            dark: '#0A0A0A',
+                            gray: '#F5F5F7',
+                            muted: '#86868B',
+                            card: '#1C1C1E'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+
+        .logo {
+    
+    display: flex;
+     align-items: center;
+     gap: 0.75rem;
+     text-decoration: none;
+     color: var(--primary);
+     font-weight: 700;
+     font-size: 1.5rem;
+     font-family: 'Playfair Display', serif;
+}
+
+.logo-icon {
+     width: 40px;
+     height: 40px;
+     background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+     border-radius: 12px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     color: white;
+     font-size: 1.2rem;
+}
+
+        /* Custom Animations & Utilities */
+        .marquee-track {
+            display: flex;
+            width: max-content;
+            animation: scroll-marquee 35s linear infinite;
+        }
+        @keyframes scroll-marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .service-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .service-card:hover {
+            background-color: #1C1C1E;
+            color: white;
+        }
+        .service-card:hover .service-icon {
+            background-color: #007AFF;
+            color: white;
+            border-color: #007AFF;
+        }
+        .service-card:hover .service-link {
+            color: #007AFF;
+        }
+
+        .portfolio-card:hover .portfolio-overlay {
+            opacity: 1;
+        }
+        .portfolio-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, padding 0.4s ease;
+        }
+        .faq-item.open .faq-answer {
+            max-height: 300px;
+        }
+        .faq-item.open .faq-icon {
+            transform: rotate(45deg);
+            background-color: #007AFF;
+            color: white;
+            border-color: #007AFF;
+        }
+
+        .process-line {
+            position: relative;
+        }
+        .process-line::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #007AFF;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 1.2s ease-out;
+        }
+        .process-line.visible::before {
+            transform: scaleX(1);
+        }
+
+        .btn-primary {
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px -10px rgba(0,122,255,0.5);
+        }
+
+
+
+        /* Our Work Showcase + Swipeable Galleries */
+        .work-showcase {
+            transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+        }
+        .work-showcase:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 24px 55px -25px rgba(0,122,255,0.32);
+            border-color: rgba(0,122,255,0.35);
+        }
+        .work-gallery {
+            position: relative;
+            display: flex;
+            gap: 0;
+            width: 100%;
+            height: 520px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            touch-action: pan-x;
+            scrollbar-width: none;
+            overscroll-behavior-x: contain;
+        }
+        .work-gallery::-webkit-scrollbar {
+            display: none;
+        }
+        .work-gallery-image {
+            position: relative;
+            flex: 0 0 100%;
+            width: 100%;
+            height: 520px;
+            overflow: hidden;
+            scroll-snap-align: start;
+            background: #111318;
+        }
+        .work-gallery-image img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: contain;
+            object-position: center;
+            background: #111318;
+            transition: transform 0.7s ease;
+        }
+        .work-showcase:hover .work-gallery-image img {
+            transform: scale(1.015);
+        }
+        .work-gallery-control {
+            position: absolute;
+            top: 50%;
+            z-index: 5;
+            width: 42px;
+            height: 42px;
+            border-radius: 9999px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(0,0,0,0.55);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: translateY(-50%);
+            backdrop-filter: blur(8px);
+            transition: opacity 0.2s ease, background 0.2s ease, transform 0.2s ease;
+        }
+        .work-gallery-control:hover {
+            background: rgba(0,122,255,0.9);
+            transform: translateY(-50%) scale(1.05);
+        }
+        .work-gallery-control.prev { left: 18px; }
+        .work-gallery-control.next { right: 18px; }
+        .work-gallery-dots {
+            position: absolute;
+            left: 50%;
+            bottom: 16px;
+            z-index: 5;
+            display: flex;
+            gap: 7px;
+            padding: 6px 9px;
+            border-radius: 9999px;
+            background: rgba(0,0,0,0.45);
+            backdrop-filter: blur(8px);
+            transform: translateX(-50%);
+        }
+        .work-gallery-dot {
+            width: 7px;
+            height: 7px;
+            padding: 0;
+            border: 0;
+            border-radius: 9999px;
+            background: rgba(255,255,255,0.45);
+            transition: width 0.2s ease, background 0.2s ease;
+        }
+        .work-gallery-dot.active {
+            width: 20px;
+            background: #007AFF;
+        }
+        .work-gallery-hint {
+            position: absolute;
+            top: 16px;
+            left: 50%;
+            z-index: 5;
+            transform: translateX(-50%);
+            padding: 7px 12px;
+            border-radius: 9999px;
+            background: rgba(0,0,0,0.5);
+            color: rgba(255,255,255,0.9);
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+        .work-tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.45rem 0.8rem;
+            border-radius: 9999px;
+            background: #f5f7fa;
+            color: #4b5563;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        @media (max-width: 767px) {
+            .work-gallery,
+            .work-gallery-image {
+                height: 420px;
+            }
+            .work-gallery-control {
+                width: 38px;
+                height: 38px;
+            }
+            .work-gallery-control.prev { left: 12px; }
+            .work-gallery-control.next { right: 12px; }
+            .work-gallery-hint {
+                font-size: 0.65rem;
+                top: 12px;
+            }
+        }
+
+        /* Pricing Section */
+        .pricing-card {
+            transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+        }
+        .pricing-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 24px 60px -24px rgba(0,122,255,0.45);
+            border-color: rgba(0,122,255,0.65);
+        }
+        .pricing-card.featured {
+            box-shadow: 0 20px 60px -25px rgba(0,122,255,0.35);
+        }
+        .pricing-check {
+            flex-shrink: 0;
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: 9999px;
+            border: 1px solid rgba(0,122,255,0.7);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #007AFF;
+        }
+
+        ::selection {
+            background: #007AFF;
+            color: white;
+        }
+    </style>
+<base target="_blank">
+</head>
+<body class="font-sans text-brand-dark antialiased bg-white">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <a href="#" class="flex items-center gap-2 group">
+                    <img src="logo.jpeg" alt="Casa di Lilly Logo" class="logo-icon">
+                    <span class="w-3 h-3 rounded-full bg-brand-blue group-hover:scale-110 transition-transform"></span>
+                    <span class="text-xl font-bold tracking-tight">MDM <span class="text-brand-blue">agency</span></span>
+                </a>
+                
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#home" class="text-sm font-medium text-brand-blue border-b-2 border-brand-blue pb-0.5">Home</a>
+                    <a href="#about" class="text-sm font-medium text-gray-600 hover:text-brand-dark transition-colors">About</a>
+                    <a href="#services" class="text-sm font-medium text-gray-600 hover:text-brand-dark transition-colors">Services</a>
+                    <a href="#pricing" class="text-sm font-medium text-gray-600 hover:text-brand-dark transition-colors">Pricing</a>
+                    <a href="#work" class="text-sm font-medium text-gray-600 hover:text-brand-dark transition-colors">Our Work</a>
+                    <a href="#case-studies" class="text-sm font-medium text-gray-600 hover:text-brand-dark transition-colors">Case Studies</a>
+                    <a href="#insights" class="text-sm font-medium text-gray-600 hover:text-brand-dark transition-colors">Insights</a>
+                    <a href="#contact" class="text-sm font-medium text-gray-600 hover:text-brand-dark transition-colors">Contact</a>
+                </div>
+
+                <a href="#contact" class="hidden md:inline-flex items-center gap-2 bg-brand-blue text-white px-6 py-3 rounded-full text-sm font-semibold btn-primary">
+                    Let's Work Together
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+
+                <button id="mobile-menu-btn" class="md:hidden p-2">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100">
+            <div class="px-6 py-4 space-y-3">
+                <a href="#home" class="block text-sm font-medium text-brand-blue">Home</a>
+                <a href="#about" class="block text-sm font-medium text-gray-600">About</a>
+                <a href="#services" class="block text-sm font-medium text-gray-600">Services</a>
+                <a href="#work" class="block text-sm font-medium text-gray-600">Our Work</a>
+                <a href="#case-studies" class="block text-sm font-medium text-gray-600">Case Studies</a>
+                <a href="#insights" class="block text-sm font-medium text-gray-600">Insights</a>
+                <a href="#contact" class="block text-sm font-medium text-gray-600">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-32 pb-16 lg:pt-40 lg:pb-24 max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <div class="fade-up">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-8 h-px bg-brand-dark"></div>
+                    <span class="text-xs font-bold tracking-[0.2em] uppercase text-gray-500">Social Media Marketing Agency</span>
+                </div>
+                <h1 class="text-4xl lg:text-6xl font-semibold leading-[1.1] tracking-tight mb-6">
+                    Your Brand Deserves More Than <span class="text-brand-blue italic font-serif">Just Social Media.</span>
+                </h1>
+                <p class="text-lg text-brand-muted leading-relaxed mb-8 max-w-lg">
+                    MDMagency Agency helps businesses build stronger digital identities through strategic social media marketing, content and creative digital campaigns.
+                </p>
+                <div class="flex flex-wrap items-center gap-4 mb-12">
+                    <a href="#contact" class="inline-flex items-center gap-2 bg-brand-dark text-white px-7 py-4 rounded-full text-sm font-semibold hover:bg-gray-800 transition-colors">
+                        Let's Grow Your Brand
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                    <a href="#work" class="inline-flex items-center gap-2 bg-white text-brand-dark border border-gray-200 px-7 py-4 rounded-full text-sm font-semibold hover:border-gray-400 transition-colors">
+                        View Our Work
+                    </a>
+                </div>
+                <div class="flex gap-12">
+                    <div>
+                        <div class="text-3xl font-bold">6</div>
+                        <div class="text-sm text-brand-muted mt-1">Core services</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold">4</div>
+                        <div class="text-sm text-brand-muted mt-1">Step growth process</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold">100%</div>
+                        <div class="text-sm text-brand-muted mt-1">Brand-first thinking</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="relative fade-up" style="transition-delay: 0.2s;">
+                <div class="relative rounded-3xl overflow-hidden aspect-[4/3]">
+                    <img src="hero.jpeg" alt="Creative studio" class="w-full h-full object-cover">
+                    
+                    <!-- Floating Tags -->
+                    <div class="absolute top-8 left-8 bg-white/95 backdrop-blur px-4 py-2 rounded-full shadow-lg flex items-center gap-2 animate-bounce" style="animation-duration: 3s;">
+                        <i data-lucide="trending-up" class="w-4 h-4 text-brand-blue"></i>
+                        <span class="text-xs font-semibold">Consistent Growth</span>
+                    </div>
+                    <div class="absolute bottom-12 right-8 bg-brand-dark/90 backdrop-blur text-white px-4 py-2 rounded-full shadow-lg flex items-center gap-2">
+                        <i data-lucide="sparkles" class="w-4 h-4 text-brand-blue"></i>
+                        <span class="text-xs font-semibold">Brand-First Content</span>
+                    </div>
+                    <div class="absolute top-1/2 right-0 translate-x-4 bg-white/95 backdrop-blur px-4 py-2 rounded-full shadow-lg flex items-center gap-2 hidden lg:flex">
+                        <i data-lucide="heart" class="w-4 h-4 text-red-500"></i>
+                        <span class="text-xs font-semibold">Engaging</span>
+                    </div>
+                </div>
+                
+                <!-- Secondary image overlap -->
+                <div class="absolute -bottom-6 -left-6 w-32 h-32 rounded-2xl overflow-hidden border-4 border-white shadow-xl hidden lg:block">
+                    <img src="logo.jpeg" alt="Social media" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Marquee -->
+    <section class="py-8 bg-brand-gray border-y border-gray-200 overflow-hidden">
+        <div class="marquee-container">
+            <div class="marquee-track">
+                <span class="text-3xl lg:text-5xl font-serif italic text-brand-dark mx-8">Strategy</span>
+                <span class="text-brand-blue mx-4 text-2xl">•</span>
+                <span class="text-3xl lg:text-5xl font-serif italic text-brand-dark mx-8">Creativity</span>
+                <span class="text-brand-blue mx-4 text-2xl">•</span>
+                <span class="text-3xl lg:text-5xl font-serif italic text-brand-dark mx-8">Content</span>
+                <span class="text-brand-blue mx-4 text-2xl">•</span>
+                <span class="text-3xl lg:text-5xl font-serif italic text-brand-dark mx-8">Consistency</span>
+                <span class="text-brand-blue mx-4 text-2xl">•</span>
+                <span class="text-3xl lg:text-5xl font-serif italic text-brand-dark mx-8">Brand Growth</span>
+                <span class="text-brand-blue mx-4 text-2xl">•</span>
+                <!-- Duplicate for seamless loop -->
+                <span class="text-3xl lg:text-5xl font-serif italic text-brand-dark mx-8">Strategy</span>
+                <span class="text-brand-blue mx-4 text-2xl">•</span>
+                <span class="text-3xl lg:text-5xl font-serif italic text-brand-dark mx-8">Creativity</span>
+                <span class="text-brand-blue mx-4 text-2xl">•</span>
+                <span class="text-3xl lg:text-5xl font-serif italic text-brand-dark mx-8">Content</span>
+                <span class="text-brand-blue mx-4 text-2xl">•</span>
+                <span class="text-3xl lg:text-5xl font-serif italic text-brand-dark mx-8">Consistency</span>
+                <span class="text-brand-blue mx-4 text-2xl">•</span>
+                <span class="text-3xl lg:text-5xl font-serif italic text-brand-dark mx-8">Brand Growth</span>
+                <span class="text-brand-blue mx-4 text-2xl">•</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why We Exist -->
+    <section id="about" class="py-24 bg-brand-gray">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-start mb-16">
+                <div class="fade-up">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-8 h-px bg-brand-blue"></div>
+                        <span class="text-xs font-bold tracking-[0.2em] uppercase text-brand-blue">Why We Exist</span>
+                    </div>
+                    <h2 class="text-4xl lg:text-6xl font-medium leading-[1.1] tracking-tight">
+                        We turn digital presence into <span class="text-brand-blue italic font-serif">brand presence.</span>
+                    </h2>
+                </div>
+                <div class="fade-up lg:pt-16" style="transition-delay: 0.1s;">
+                    <p class="text-brand-muted leading-relaxed">
+                        MDMagency Agency focuses on helping businesses communicate consistently and professionally across every digital channel.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-2xl p-8 fade-up">
+                    <div class="w-12 h-12 bg-brand-dark rounded-xl flex items-center justify-center mb-6">
+                        <i data-lucide="target" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Strategy</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">
+                        Every campaign begins with understanding the business, its audience and clear objectives.
+                    </p>
+                </div>
+                <div class="bg-white rounded-2xl p-8 fade-up" style="transition-delay: 0.1s;">
+                    <div class="w-12 h-12 bg-brand-dark rounded-xl flex items-center justify-center mb-6">
+                        <i data-lucide="pen-tool" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Creativity</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">
+                        Content should look and feel like the brand — not like everyone else's feed.
+                    </p>
+                </div>
+                <div class="bg-white rounded-2xl p-8 fade-up" style="transition-delay: 0.2s;">
+                    <div class="w-12 h-12 bg-brand-dark rounded-xl flex items-center justify-center mb-6">
+                        <i data-lucide="repeat" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Consistency</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">
+                        A strong digital presence requires consistent communication and reliable execution.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-end mb-16">
+                <div class="fade-up">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-8 h-px bg-brand-blue"></div>
+                        <span class="text-xs font-bold tracking-[0.2em] uppercase text-brand-blue">What We Do</span>
+                    </div>
+                    <h2 class="text-4xl lg:text-6xl font-medium leading-[1.1] tracking-tight">
+                        Services built for modern brands.
+                    </h2>
+                </div>
+                <div class="fade-up" style="transition-delay: 0.1s;">
+                    <p class="text-brand-muted leading-relaxed lg:text-right">
+                        A complete digital growth offering — combining MDMagency's social media expertise with our strategic partnership with Casa di Lilly for websites, AI automation and digital solutions.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 border border-gray-200 rounded-3xl overflow-hidden">
+                <!-- Service 01 -->
+                <div class="service-card group p-8 border-b border-r border-gray-200 cursor-pointer bg-white">
+                    <div class="text-xs text-gray-400 font-medium mb-6">01</div>
+                    <div class="service-icon w-12 h-12 rounded-xl border border-gray-200 flex items-center justify-center mb-6 transition-all">
+                        <i data-lucide="check-square" class="w-5 h-5 text-brand-dark"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Social Media Management</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed mb-6">
+                        Strategic management of your platforms — planning, publishing and ongoing optimisation.
+                    </p>
+                    <span class="service-link inline-flex items-center gap-2 text-sm font-semibold text-brand-dark transition-colors">
+                        Explore Service <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </span>
+                </div>
+
+                <!-- Service 02 -->
+                <div class="service-card group p-8 border-b border-r border-gray-200 cursor-pointer bg-white">
+                    <div class="text-xs text-gray-400 font-medium mb-6">02</div>
+                    <div class="service-icon w-12 h-12 rounded-xl border border-gray-200 flex items-center justify-center mb-6 transition-all">
+                        <i data-lucide="edit-3" class="w-5 h-5 text-brand-dark"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Content Creation</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed mb-6">
+                        Creative social content designed around the brand's identity, audience and objectives.
+                    </p>
+                    <span class="service-link inline-flex items-center gap-2 text-sm font-semibold text-brand-dark transition-colors">
+                        Explore Service <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </span>
+                </div>
+
+                <!-- Service 03 -->
+                <div class="service-card group p-8 border-b border-gray-200 cursor-pointer bg-white lg:border-r-0">
+                    <div class="text-xs text-gray-400 font-medium mb-6">03</div>
+                    <div class="service-icon w-12 h-12 rounded-xl border border-gray-200 flex items-center justify-center mb-6 transition-all">
+                        <i data-lucide="trending-up" class="w-5 h-5 text-brand-dark"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Social Media Strategy</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed mb-6">
+                        Structured content and campaign strategies that give businesses a clearer direction.
+                    </p>
+                    <span class="service-link inline-flex items-center gap-2 text-sm font-semibold text-brand-dark transition-colors">
+                        Explore Service <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </span>
+                </div>
+
+                <!-- Service 04 -->
+                <div class="service-card group p-8 border-r border-gray-200 cursor-pointer bg-white">
+                    <div class="text-xs text-gray-400 font-medium mb-6">04</div>
+                    <div class="service-icon w-12 h-12 rounded-xl border border-gray-200 flex items-center justify-center mb-6 transition-all">
+                        <i data-lucide="globe" class="w-5 h-5 text-brand-dark"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Website Design &amp; Development</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed mb-6">
+                        Premium, conversion-focused websites designed and developed through our strategic partnership with Casa di Lilly.
+                    </p>
+                    <span class="service-link inline-flex items-center gap-2 text-sm font-semibold text-brand-dark transition-colors">
+                        Explore Service <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </span>
+                </div>
+
+                <!-- Service 05 -->
+                <div class="service-card group p-8 border-r border-gray-200 cursor-pointer bg-white">
+                    <div class="text-xs text-gray-400 font-medium mb-6">05</div>
+                    <div class="service-icon w-12 h-12 rounded-xl border border-gray-200 flex items-center justify-center mb-6 transition-all">
+                        <i data-lucide="bot" class="w-5 h-5 text-brand-dark"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">AI &amp; Business Automation</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed mb-6">
+                        Smart automation solutions that streamline workflows, improve efficiency and help businesses scale through AI.
+                    </p>
+                    <span class="service-link inline-flex items-center gap-2 text-sm font-semibold text-brand-dark transition-colors">
+                        Explore Service <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </span>
+                </div>
+
+                <!-- Service 06 -->
+                <div class="service-card group p-8 cursor-pointer bg-white">
+                    <div class="text-xs text-gray-400 font-medium mb-6">06</div>
+                    <div class="service-icon w-12 h-12 rounded-xl border border-gray-200 flex items-center justify-center mb-6 transition-all">
+                        <i data-lucide="bar-chart-2" class="w-5 h-5 text-brand-dark"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Digital Growth</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed mb-6">
+                        Use content, strategy and audience insights to continuously improve your online presence.
+                    </p>
+                    <span class="service-link inline-flex items-center gap-2 text-sm font-semibold text-brand-dark transition-colors">
+                        Explore Service <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Pricing -->
+    <section id="pricing" class="py-24 bg-brand-dark text-white relative overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(0,122,255,0.22)_0%,_transparent_45%)]"></div>
+        <div class="absolute -right-32 top-20 w-96 h-96 rounded-full bg-brand-blue/10 blur-3xl"></div>
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-16 fade-up">
+                <div class="flex items-center justify-center gap-3 mb-6">
+                    <div class="w-8 h-px bg-brand-blue"></div>
+                    <span class="text-xs font-bold tracking-[0.2em] uppercase text-brand-blue">Social Media Management</span>
+                    <div class="w-8 h-px bg-brand-blue"></div>
+                </div>
+                <h2 class="text-4xl lg:text-6xl font-medium leading-[1.05] tracking-tight mb-5">
+                    Strategy. Content. <span class="text-brand-blue italic font-serif">Engagement. Growth.</span>
+                </h2>
+                <p class="text-gray-400 leading-relaxed">
+                    Flexible monthly packages designed to help your brand build a consistent, professional and growth-focused social media presence.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-6 items-stretch">
+                <!-- Essential Growth -->
+                <div class="pricing-card rounded-3xl border border-gray-800 bg-black/60 overflow-hidden flex flex-col fade-up">
+                    <div class="p-8 border-b border-gray-800">
+                        <div class="flex items-center gap-3 mb-5">
+                            <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-gray-300 to-gray-600 flex items-center justify-center text-xl"><i data-lucide="star"class="w-4 h-4"></i> </div>
+                            <div>
+                                <div class="text-xs font-bold uppercase tracking-wider text-gray-500">01</div>
+                                <h3 class="text-2xl font-semibold">Essential Growth</h3>
+                            </div>
+                        </div>
+                        <span class="inline-flex px-4 py-2 rounded-full bg-brand-blue text-white text-xs font-bold">1 PLATFORM</span>
+                    </div>
+                    <div class="p-8 flex-1 flex flex-col">
+                        <ul class="space-y-4 text-sm text-gray-300 flex-1">
+                            <li class="flex gap-3"><span class="pricing-check">✓</span><span>12 Scheduled Posts</span></li>
+                            <li class="flex gap-3"><span class="pricing-check">✓</span><span>1 Strategy Call (30 mins)</span></li>
+                            <li class="flex gap-3"><span class="pricing-check">✓</span><span>1 Social Media Platform</span></li>
+                            <li class="flex gap-3"><span class="pricing-check">✓</span><span>Engagement (15 mins/day)</span></li>
+                            <li class="flex gap-3"><span class="pricing-check">✓</span><span>Monthly Analytics Report</span></li>
+                            <li class="flex gap-3"><span class="pricing-check">✓</span><span>Social Media Strategy</span></li>
+                            <li class="flex gap-3"><span class="pricing-check">✓</span><span>Content Calendar</span></li>
+                            <li class="flex gap-3"><span class="pricing-check">✓</span><span>Email Support</span></li>
+                        </ul>
+                        <div class="mt-8 pt-6 border-t border-gray-800">
+                            <div class="text-4xl font-bold tracking-tight">R8,500</div>
+                            <div class="text-xs text-gray-500 uppercase tracking-wider mt-1">Per Month</div>
+                            <p class="text-sm text-gray-400 mt-4">Ideal for businesses getting started and building a strong online presence.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Business Growth -->
+                <div class="pricing-card featured rounded-3xl border border-brand-blue/50 bg-gradient-to-b from-blue-950/60 to-black/80 overflow-hidden flex flex-col fade-up" style="transition-delay: 0.1s;">
+                    <div class="p-8 border-b border-gray-800">
+                        <div class="flex items-center gap-3 mb-5">
+                            <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-gray-200 to-gray-500 flex items-center justify-center text-xl"><i data-lucide="star"class="w-4 h-4"></i></div>
+                            <div>
+                                <div class="text-xs font-bold uppercase tracking-wider text-brand-blue">02 · Popular</div>
+                                <h3 class="text-2xl font-semibold">Business Growth</h3>
+                            </div>
+                        </div>
+                        <span class="inline-flex px-4 py-2 rounded-full bg-brand-blue text-white text-xs font-bold">2 PLATFORMS</span>
+                    </div>
+                    <div class="p-8 flex-1 flex flex-col">
+                        <ul class="space-y-4 text-sm text-gray-300 flex-1">
+                            <li class="flex gap-3"><span class="pricing-check">✓</span><span>20 Scheduled Posts</span></li>
+                            <li class="flex gap-3"><span class="pricing-check">✓</span><span>2 Strategy Calls (30 mins each)</span></li>
+                            <li class="flex gap-3"><span class="pricing-check">✓</span><span>2 Social Media Platforms</span></li>
+                            <li class="flex gap-3"><span class="pricing-check">✓</span><span>Engagement (30 mins/day)</span></li>
+                            <li class="flex gap-3"><span class="pricing-check">✓</span><span>Detailed Analytics Report</span></li>
+                            <li class="flex gap-3"><span class="pricing-check">✓</span><span>Social Media Strategy</span></li>
+                            <li class="flex gap-3"><span class="pricing-check">✓</span><span>Content Calendar</span></li>
+                            <li class="flex gap-3"><span class="pricing-check">✓</span><span>Priority Email Support</span></li>
+                        </ul>
+                        <div class="mt-8 pt-6 border-t border-gray-800">
+                            <div class="text-4xl font-bold tracking-tight">R13,500</div>
+                            <div class="text-xs text-gray-500 uppercase tracking-wider mt-1">Per Month</div>
+                            <p class="text-sm text-gray-400 mt-4">Perfect for growing businesses ready to increase engagement and reach.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scale & Dominate -->
+                <div class="pricing-card rounded-3xl border border-gray-800 bg-black/60 overflow-hidden flex flex-col fade-up" style="transition-delay: 0.2s;">
+                    <div class="p-8 border-b border-gray-800">
+                        <div class="flex items-center gap-3 mb-5">
+                            <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-yellow-200 to-yellow-600 flex items-center justify-center text-xl"><i data-lucide="star"class="w-4 h-4"></i></div>
+                            <div>
+                                <div class="text-xs font-bold uppercase tracking-wider text-gray-500">03</div>
+                                <h3 class="text-2xl font-semibold">Scale &amp; Dominate</h3>
+                            </div>
+                        </div>
+                        <span class="inline-flex px-4 py-2 rounded-full bg-brand-blue text-white text-xs font-bold">3 PLATFORMS</span>
+                    </div>
+                    <div class="p-8 flex-1 flex flex-col">
+                        <ul class="space-y-4 text-sm text-gray-300 flex-1">
+                            <li class="flex gap-3"><span class="pricing-check">✓</span><span>30 Scheduled Posts</span></li>
+                            <li class="flex gap-3"><span class="pricing-check">✓</span><span>Bi-Weekly Strategy Calls</span></li>
+                            <li class="flex gap-3"><span class="pricing-check">✓</span><span>Up to 3 Social Media Platforms</span></li>
+                            <li class="flex gap-3"><span class="pricing-check">✓</span><span>Engagement (45 mins/day)</span></li>
+                            <li class="flex gap-3"><span class="pricing-check">✓</span><span>Advanced Analytics &amp; Performance Report</span></li>
+                            <li class="flex gap-3"><span class="pricing-check">✓</span><span>Advanced Social Media Strategy</span></li>
+                            <li class="flex gap-3"><span class="pricing-check">✓</span><span>Content Calendar</span></li>
+                            <li class="flex gap-3"><span class="pricing-check">✓</span><span>Priority Email &amp; WhatsApp Support</span></li>
+                        </ul>
+                        <div class="mt-8 pt-6 border-t border-gray-800">
+                            <div class="text-4xl font-bold tracking-tight">R18,500</div>
+                            <div class="text-xs text-gray-500 uppercase tracking-wider mt-1">Per Month</div>
+                            <p class="text-sm text-gray-400 mt-4">For businesses ready to scale with a complete, data-driven social media presence.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add-ons -->
+            <div class="mt-8 rounded-3xl border border-gray-800 bg-black/50 p-6 lg:p-8 fade-up">
+                <div class="flex items-center gap-4 mb-7">
+                    <div class="h-px flex-1 bg-gray-800"></div>
+                    <h3 class="text-sm font-bold tracking-[0.25em] uppercase text-brand-blue">Add-Ons</h3>
+                    <div class="h-px flex-1 bg-gray-800"></div>
+                </div>
+                <div class="grid md:grid-cols-3 gap-6 text-center">
+                    <div class="md:border-r md:border-gray-800 px-4">
+                        <i data-lucide="plus-circle" class="w-8 h-8 text-brand-blue mx-auto mb-3"></i>
+                        <h4 class="font-semibold">Additional Platform</h4>
+                        <p class="text-brand-blue font-semibold mt-1">R2,500 / month</p>
+                    </div>
+                    <div class="md:border-r md:border-gray-800 px-4">
+                        <i data-lucide="clapperboard" class="w-8 h-8 text-brand-blue mx-auto mb-3"></i>
+                        <h4 class="font-semibold">Additional Reel</h4>
+                        <p class="text-brand-blue font-semibold mt-1">R450 each</p>
+                    </div>
+                    <div class="px-4">
+                        <i data-lucide="bar-chart-3" class="w-8 h-8 text-brand-blue mx-auto mb-3"></i>
+                        <h4 class="font-semibold">Social Media Audit</h4>
+                        <p class="text-brand-blue font-semibold mt-1">R2,000</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why MDMagency -->
+    <section class="py-24 bg-brand-dark text-white">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16">
+                <div class="fade-up">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-8 h-px bg-brand-blue"></div>
+                        <span class="text-xs font-bold tracking-[0.2em] uppercase text-brand-blue">Why MDMagency</span>
+                    </div>
+                    <h2 class="text-4xl lg:text-5xl font-medium leading-[1.1] tracking-tight mb-6">
+                        We don't just create content. We build <span class="text-brand-blue italic font-serif">digital consistency.</span>
+                    </h2>
+                    <p class="text-gray-400 leading-relaxed mb-10">
+                        Most businesses don't have a content problem — they have a consistency problem. Here's what we solve.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                        <div class="border border-gray-800 rounded-2xl p-5 text-center hover:border-brand-blue/50 transition-colors">
+                            <div class="text-2xl font-bold mb-1">1</div>
+                            <div class="text-xs text-gray-400">Strategy</div>
+                        </div>
+                        <div class="border border-gray-800 rounded-2xl p-5 text-center hover:border-brand-blue/50 transition-colors">
+                            <div class="text-2xl font-bold mb-1">2</div>
+                            <div class="text-xs text-gray-400">Creative</div>
+                        </div>
+                        <div class="border border-gray-800 rounded-2xl p-5 text-center hover:border-brand-blue/50 transition-colors">
+                            <div class="text-2xl font-bold mb-1">3</div>
+                            <div class="text-xs text-gray-400">Consistency</div>
+                        </div>
+                        <div class="border border-gray-800 rounded-2xl p-5 text-center hover:border-brand-blue/50 transition-colors">
+                            <div class="text-2xl font-bold mb-1">4</div>
+                            <div class="text-xs text-gray-400">Growth</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-6 fade-up" style="transition-delay: 0.2s;">
+                    <div class="flex gap-4 pb-6 border-b border-gray-800">
+                        <span class="text-brand-blue font-bold text-lg">01</span>
+                        <div>
+                            <h4 class="font-semibold mb-1">Inconsistent posting</h4>
+                            <p class="text-sm text-gray-400">We build a reliable content rhythm so your brand shows up consistently.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 pb-6 border-b border-gray-800">
+                        <span class="text-brand-blue font-bold text-lg">02</span>
+                        <div>
+                            <h4 class="font-semibold mb-1">Weak brand messaging</h4>
+                            <p class="text-sm text-gray-400">We define a clear voice and message that carries across every post.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 pb-6 border-b border-gray-800">
+                        <span class="text-brand-blue font-bold text-lg">03</span>
+                        <div>
+                            <h4 class="font-semibold mb-1">Poor-quality content</h4>
+                            <p class="text-sm text-gray-400">We craft content designed around your brand identity and audience.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 pb-6 border-b border-gray-800">
+                        <span class="text-brand-blue font-bold text-lg">04</span>
+                        <div>
+                            <h4 class="font-semibold mb-1">No clear strategy</h4>
+                            <p class="text-sm text-gray-400">We give your social media a structured direction and purpose.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 pb-6 border-b border-gray-800">
+                        <span class="text-brand-blue font-bold text-lg">05</span>
+                        <div>
+                            <h4 class="font-semibold mb-1">Lack of time</h4>
+                            <p class="text-sm text-gray-400">We take execution off your plate so you can run your business.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process -->
+    <section class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-end mb-16">
+                <div class="fade-up">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-8 h-px bg-brand-blue"></div>
+                        <span class="text-xs font-bold tracking-[0.2em] uppercase text-brand-blue">How We Work</span>
+                    </div>
+                    <h2 class="text-4xl lg:text-5xl font-medium leading-[1.1] tracking-tight">
+                        A process built for clarity.
+                    </h2>
+                </div>
+                <div class="fade-up" style="transition-delay: 0.1s;">
+                    <p class="text-brand-muted leading-relaxed lg:text-right">
+                        Four clear stages that take a brand from uncertainty to a confident, consistent digital presence.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="process-line pt-6 fade-up">
+                    <div class="text-xs font-bold text-brand-blue mb-2">01 — Discover</div>
+                    <h3 class="text-xl font-semibold mb-3">Discover</h3>
+                    <p class="text-sm text-brand-muted leading-relaxed">
+                        Understand your business, audience, competitors and goals.
+                    </p>
+                </div>
+                <div class="process-line pt-6 fade-up" style="transition-delay: 0.1s;">
+                    <div class="text-xs font-bold text-brand-blue mb-2">02 — Strategise</div>
+                    <h3 class="text-xl font-semibold mb-3">Strategise</h3>
+                    <p class="text-sm text-brand-muted leading-relaxed">
+                        Build the content and social media strategy around real objectives.
+                    </p>
+                </div>
+                <div class="process-line pt-6 fade-up" style="transition-delay: 0.2s;">
+                    <div class="text-xs font-bold text-brand-blue mb-2">03 — Create</div>
+                    <h3 class="text-xl font-semibold mb-3">Create</h3>
+                    <p class="text-sm text-brand-muted leading-relaxed">
+                        Develop creative content and campaigns that reflect the brand.
+                    </p>
+                </div>
+                <div class="process-line pt-6 fade-up" style="transition-delay: 0.3s;">
+                    <div class="text-xs font-bold text-brand-blue mb-2">04 — Grow</div>
+                    <h3 class="text-xl font-semibold mb-3">Grow</h3>
+                    <p class="text-sm text-brand-muted leading-relaxed">
+                        Monitor performance, learn from results and refine the strategy.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Strategic Partnership -->
+            <div class="mt-20 relative overflow-hidden rounded-[2rem] border border-gray-200 bg-gray-50 p-8 lg:p-12">
+                <div class="absolute -top-24 -right-24 w-64 h-64 rounded-full bg-brand-blue/10 blur-3xl"></div>
+                <div class="relative">
+                    <div class="max-w-3xl mx-auto text-center mb-12">
+                        <span class="inline-block text-xs font-bold tracking-[0.2em] uppercase text-brand-blue mb-4">Strategic Partnership</span>
+                        <h3 class="text-3xl lg:text-4xl font-semibold tracking-tight mb-4">Complete Digital Solutions. One Trusted Team.</h3>
+                        <p class="text-brand-muted leading-relaxed">
+                            MDMagency has partnered with <strong class="text-brand-dark">Casa di Lilly</strong> to give clients access to a more complete digital growth solution. Together, we combine strategic social media marketing with premium website design, AI automation and digital solutions — helping businesses build stronger online presences, attract more customers and grow with confidence.
+                        </p>
+                    </div>
+
+                    <div class="grid lg:grid-cols-[1fr_auto_1fr] items-stretch gap-5 lg:gap-0 max-w-5xl mx-auto">
+                        <!-- MDMagency: Core Expertise -->
+                        <div class="rounded-3xl bg-brand-dark text-white p-8 lg:p-10 shadow-xl">
+                            <span class="block text-xs font-bold tracking-[0.16em] uppercase text-brand-blue mb-3">Core Expertise</span>
+                            <h4 class="text-2xl font-semibold mb-7">MDMagency</h4>
+                            <ul class="space-y-4">
+                                <li class="flex items-center gap-3"><span class="w-7 h-7 rounded-full bg-brand-blue/20 text-brand-blue inline-flex items-center justify-center font-bold">✓</span><span>Social Media Marketing</span></li>
+                                <li class="flex items-center gap-3"><span class="w-7 h-7 rounded-full bg-brand-blue/20 text-brand-blue inline-flex items-center justify-center font-bold">✓</span><span>Content Strategy</span></li>
+                                <li class="flex items-center gap-3"><span class="w-7 h-7 rounded-full bg-brand-blue/20 text-brand-blue inline-flex items-center justify-center font-bold">✓</span><span>Social Media Management</span></li>
+                                <li class="flex items-center gap-3"><span class="w-7 h-7 rounded-full bg-brand-blue/20 text-brand-blue inline-flex items-center justify-center font-bold">✓</span><span>Campaign Management</span></li>
+                            </ul>
+                        </div>
+
+                        <!-- Plus -->
+                        <div class="hidden lg:flex w-16 h-16 rounded-full bg-white border border-gray-200 items-center justify-center self-center -mx-8 z-10 shadow-lg text-2xl font-semibold text-brand-dark">+</div>
+                        <div class="lg:hidden flex w-14 h-14 rounded-full bg-white border border-gray-200 items-center justify-center mx-auto -my-3 z-10 shadow-lg text-2xl font-semibold text-brand-dark">+</div>
+
+                        <!-- Casa di Lilly: Strategic Partner -->
+                        <div class="rounded-3xl bg-white border border-gray-200 p-8 lg:p-10 shadow-xl">
+                            <span class="block text-xs font-bold tracking-[0.16em] uppercase text-brand-blue mb-3">Strategic Partner</span>
+                            <h4 class="text-2xl font-semibold mb-7 text-brand-dark">Casa di Lilly</h4>
+                            <ul class="space-y-4 text-brand-dark">
+                                <li class="flex items-center gap-3"><span class="w-7 h-7 rounded-full bg-brand-blue/10 text-brand-blue inline-flex items-center justify-center font-bold">✓</span><span>Website Design &amp; Development</span></li>
+                                <li class="flex items-center gap-3"><span class="w-7 h-7 rounded-full bg-brand-blue/10 text-brand-blue inline-flex items-center justify-center font-bold">✓</span><span>AI &amp; Business Automation</span></li>
+                                <li class="flex items-center gap-3"><span class="w-7 h-7 rounded-full bg-brand-blue/10 text-brand-blue inline-flex items-center justify-center font-bold">✓</span><span>Branding &amp; Identity</span></li>
+                                <li class="flex items-center gap-3"><span class="w-7 h-7 rounded-full bg-brand-blue/10 text-brand-blue inline-flex items-center justify-center font-bold">✓</span><span>Digital Solutions</span></li>
+                            </ul>
+                                        <p class="text-xs tracking-wide text-gray-400">
+    View
+    <a 
+        href="https://www.casadililly.co.za/" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        class="font-semibold text-brand-blue hover:text-brand-dark transition-colors"
+    >
+        Casa di Lilly
+    </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Work -->
+    <section id="work" class="py-24 bg-brand-gray">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-end mb-14">
+                <div class="fade-up">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-8 h-px bg-brand-blue"></div>
+                        <span class="text-xs font-bold tracking-[0.2em] uppercase text-brand-blue">Our Work</span>
+                    </div>
+                    <h2 class="text-4xl lg:text-5xl font-medium leading-[1.1] tracking-tight">
+                        Real brands. <span class="text-brand-blue italic font-serif">Real creative work.</span>
+                    </h2>
+                </div>
+                <div class="fade-up" style="transition-delay: 0.1s;">
+                    <p class="text-brand-muted leading-relaxed lg:text-right">
+                        A look at the social media content, campaign creative and brand presence MDMagency has created for clients in the fitness and beauty industries.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- Fitness / Gym Work -->
+                <article class="work-showcase group bg-white rounded-3xl overflow-hidden border border-gray-200 fade-up">
+                    <div class="work-gallery work-gallery-three bg-brand-dark p-2">
+                        <div class="work-gallery-image">
+                            <img src="Portfolio (4).jpeg" alt="Gym On The Corner social media work" loading="lazy">
+                        </div>
+                        <div class="work-gallery-image">
+                            <img src="Portfolio.jpeg" alt="Gym On The Corner Instagram content" loading="lazy">
+                        </div>
+                        <div class="work-gallery-image">
+                            <img src="Portfolio (6).jpeg" alt="Gym On The Corner social media profile and content" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="p-8 lg:p-10">
+                        <div class="flex items-center justify-between gap-4 mb-5">
+                            <div>
+                                <span class="text-brand-blue text-xs font-bold uppercase tracking-[0.18em]">Fitness · Social Media</span>
+                                <h3 class="text-2xl lg:text-3xl font-semibold mt-2">Gym On The Corner</h3>
+                            </div>
+                            <div class="w-11 h-11 rounded-full bg-blue-50 text-brand-blue flex items-center justify-center shrink-0">
+                                <i data-lucide="dumbbell" class="w-5 h-5"></i>
+                            </div>
+                        </div>
+                        <p class="text-brand-muted leading-relaxed mb-6">
+                            Strategic social content for a fitness brand, combining educational posts, promotional campaigns, motivational messaging and community-focused content.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="work-tag">Social Media</span>
+                            <span class="work-tag">Content Creation</span>
+                            <span class="work-tag">Campaigns</span>
+                            <span class="work-tag">Branding</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Beauty / Hair Salon Work -->
+                <article class="work-showcase group bg-white rounded-3xl overflow-hidden border border-gray-200 fade-up" style="transition-delay: 0.1s;">
+                    <div class="work-gallery work-gallery-single bg-brand-dark p-2">
+                        <div class="work-gallery-image">
+                            <img src="Portfolio (2).jpeg" alt="Gym On The Corner Instagram content" loading="lazy">
+                        </div>
+                        <div class="work-gallery-image">
+                            <img src="Portfolio (3).jpeg" alt="Gym On The Corner social media profile and content" loading="lazy">
+                        </div>
+                        <div class="work-gallery-image">
+                            <img src="Portfolio (5).jpeg" alt="Gym On The Corner social media profile and content" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="p-8 lg:p-10">
+                        <div class="flex items-center justify-between gap-4 mb-5">
+                            <div>
+                                <span class="text-brand-blue text-xs font-bold uppercase tracking-[0.18em]">Beauty · Social Media</span>
+                                <h3 class="text-2xl lg:text-3xl font-semibold mt-2">Locs &amp; More Mobile Salon</h3>
+                            </div>
+                            <div class="w-11 h-11 rounded-full bg-blue-50 text-brand-blue flex items-center justify-center shrink-0">
+                                <i data-lucide="scissors" class="w-5 h-5"></i>
+                            </div>
+                        </div>
+                        <p class="text-brand-muted leading-relaxed mb-6">
+                            A professional beauty brand presence showcasing hairstyling services, client experiences, promotional content and a consistent visual identity across social media.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="work-tag">Social Media</span>
+                            <span class="work-tag">Content Creation</span>
+                            <span class="work-tag">Branding</span>
+                            <span class="work-tag">Beauty</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Showcase -->
+    <section class="py-24 bg-brand-dark text-white">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 mb-12">
+            <div class="grid lg:grid-cols-2 gap-16 items-end">
+                <div class="fade-up">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-8 h-px bg-brand-blue"></div>
+                        <span class="text-xs font-bold tracking-[0.2em] uppercase text-brand-blue">Social Showcase</span>
+                    </div>
+                    <h2 class="text-4xl lg:text-5xl font-medium leading-[1.1] tracking-tight">
+                        Built for the scroll.<br>Designed for the brand.
+                    </h2>
+                </div>
+                <div class="fade-up" style="transition-delay: 0.1s;">
+                    <p class="text-gray-400 leading-relaxed lg:text-right">
+                        A glimpse of the posts, reels and campaign visuals we craft for brands.
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 px-4">
+            <div class="space-y-4">
+                <div class="rounded-2xl overflow-hidden aspect-[3/4]">
+                    <img src="image-1.jpeg" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="rounded-2xl overflow-hidden aspect-square">
+                    <img src="image-2.jpeg" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                </div>
+            </div>
+            <div class="space-y-4 pt-8">
+                <div class="rounded-2xl overflow-hidden aspect-square">
+                    <img src="image-3.jpeg" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="rounded-2xl overflow-hidden aspect-[3/4]">
+                    <img src="image-4.jpeg" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                </div>
+            </div>
+            <div class="space-y-4">
+                <div class="rounded-2xl overflow-hidden aspect-[3/4]">
+                    <img src="image-5.jpeg" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="rounded-2xl overflow-hidden aspect-square">
+                    <img src="image-6.jpeg" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                </div>
+            </div>
+            <div class="space-y-4 pt-8">
+                <div class="rounded-2xl overflow-hidden aspect-square">
+                    <img src="image-7.jpeg" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="rounded-2xl overflow-hidden aspect-[3/4]">
+                    <img src="image-8.jpeg" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Case Studies -->
+    <section id="case-studies" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-end mb-16">
+                <div class="fade-up">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-8 h-px bg-brand-blue"></div>
+                        <span class="text-xs font-bold tracking-[0.2em] uppercase text-brand-blue">Case Studies</span>
+                    </div>
+                    <h2 class="text-4xl lg:text-5xl font-medium leading-[1.1] tracking-tight">
+                        From strategy to <span class="text-brand-blue italic font-serif">brand growth.</span>
+                    </h2>
+                </div>
+                <div class="fade-up" style="transition-delay: 0.1s;">
+                    <p class="text-brand-muted leading-relaxed lg:text-right">
+                        A closer look at how MDMagency approaches different industries through strategy, creative execution and consistent social media management.
+                    </p>
+                </div>
+            </div>
+
+            <div class="space-y-8">
+                <!-- Case Study 1: Beauty -->
+                <div class="grid lg:grid-cols-2 gap-0 rounded-3xl overflow-hidden border border-gray-200 fade-up">
+                    <div class="aspect-[4/3] lg:aspect-auto">
+                        <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1000&auto=format&fit=crop&q=80" alt="Beauty salon interior" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-8 lg:p-12 flex flex-col justify-center bg-white">
+                        <span class="text-brand-blue text-xs font-bold uppercase tracking-wider mb-4">Case Study 01 · Beauty</span>
+                        <h3 class="text-2xl lg:text-3xl font-semibold mb-6">Creating a more cohesive digital presence for a beauty brand.</h3>
+
+                        <div class="space-y-5 mb-8">
+                            <div>
+                                <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">The Challenge</span>
+                                <p class="text-sm text-brand-muted mt-1">The salon had an inconsistent social media presence, unclear branding, and low audience engagement.</p>
+                            </div>
+                            <div>
+                                <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">The Strategy</span>
+                                <p class="text-sm text-brand-muted mt-1">We developed a content strategy focused on showcasing services, building trust, and creating content relevant to its ideal customers.</p>
+                            </div>
+                            <div>
+                                <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">The Execution</span>
+                                <p class="text-sm text-brand-muted mt-1">We created branded visuals, planned a strategic content calendar, and optimized the profile to create a more professional online presence.</p>
+                            </div>
+                            <div>
+                                <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">The Outcome</span>
+                                <p class="text-sm text-brand-muted mt-1">The brand achieved a more cohesive digital presence designed to improve visibility, engagement, and customer interest.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Case Study 2: Fitness -->
+                <div class="grid lg:grid-cols-2 gap-0 rounded-3xl overflow-hidden border border-gray-200 fade-up">
+                    <div class="aspect-[4/3] lg:aspect-auto lg:order-2">
+                        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1000&auto=format&fit=crop&q=80" alt="Fitness training" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-8 lg:p-12 flex flex-col justify-center bg-white lg:order-1">
+                        <span class="text-brand-blue text-xs font-bold uppercase tracking-wider mb-4">Case Study 02 · Fitness</span>
+                        <h3 class="text-2xl lg:text-3xl font-semibold mb-6">Building a stronger, more engaging fitness presence.</h3>
+
+                        <div class="space-y-5 mb-8">
+                            <div>
+                                <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">The Challenge</span>
+                                <p class="text-sm text-brand-muted mt-1">The fitness business struggled with inconsistent posting and lacked a clear strategy to engage and grow its audience.</p>
+                            </div>
+                            <div>
+                                <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">The Strategy</span>
+                                <p class="text-sm text-brand-muted mt-1">We created a social media strategy focused on motivational, educational, and community-driven content.</p>
+                            </div>
+                            <div>
+                                <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">The Execution</span>
+                                <p class="text-sm text-brand-muted mt-1">We developed branded content, structured a consistent posting schedule, and used performance insights to guide content decisions.</p>
+                            </div>
+                            <div>
+                                <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">The Outcome</span>
+                                <p class="text-sm text-brand-muted mt-1">The brand established a stronger and more engaging online presence designed to support audience growth and brand awareness.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- =====================================================
+     TESTIMONIALS
+===================================================== -->
+<section id="testimonials" class="py-24 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+
+        <!-- Section Header -->
+        <div class="text-center max-w-3xl mx-auto mb-16 fade-up">
+            <div class="flex items-center justify-center gap-3 mb-5">
+                <div class="w-8 h-px bg-brand-blue"></div>
+                <span class="text-xs font-bold tracking-[0.2em] uppercase text-brand-blue">
+                    Client Feedback
+                </span>
+                <div class="w-8 h-px bg-brand-blue"></div>
+            </div>
+
+            <h2 class="text-4xl lg:text-5xl font-semibold tracking-tight mb-5">
+                What Our Clients <span class="text-brand-blue italic font-serif">Say.</span>
+            </h2>
+
+            <p class="text-brand-muted leading-relaxed">
+                We believe great partnerships are built on trust, creativity
+                and results. Here's what our clients have to say about
+                working with MDMagency.
+            </p>
+        </div>
+
+        <!-- Testimonials -->
+        <div class="grid md:grid-cols-3 gap-6">
+
+            <!-- Testimonial 1 -->
+            <div class="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm fade-up">
+                
+                <div class="flex gap-1 mb-6 text-brand-blue">
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                </div>
+
+                <div class="text-4xl text-brand-blue font-serif mb-4">
+                    “
+                </div>
+
+                <p class="text-brand-muted leading-relaxed mb-8">
+                    MDMagency helped us create a much more professional and
+                    consistent presence online. Their approach made our brand
+                    feel more organised and engaging.
+                </p>
+
+                <div class="flex items-center gap-4">
+                    <div class="w-11 h-11 rounded-full bg-brand-dark flex items-center justify-center text-white font-semibold">
+                        C
+                    </div>
+
+                    <div>
+                        <h4 class="font-semibold text-brand-dark">
+                            Tom Van Wyk
+                        </h4>
+                        <p class="text-sm text-brand-muted">
+                            Gym On The Corner
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Testimonial 2 -->
+            <div class="bg-brand-dark text-white rounded-3xl p-8 shadow-xl fade-up"
+                 style="transition-delay: 0.1s;">
+
+                <div class="flex gap-1 mb-6 text-brand-blue">
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                </div>
+
+                <div class="text-4xl text-brand-blue font-serif mb-4">
+                    “
+                </div>
+
+                <p class="text-gray-300 leading-relaxed mb-8">
+                    The content and strategy gave us a clearer direction for
+                    our social media. We now have a stronger foundation for
+                    communicating with our audience.
+                </p>
+
+                <div class="flex items-center gap-4">
+                    <div class="w-11 h-11 rounded-full bg-brand-blue flex items-center justify-center text-white font-semibold">
+                        G
+                    </div>
+
+                    <div>
+                        <h4 class="font-semibold">
+                            Dineo Zulu
+                        </h4>
+                        <p class="text-gray-400 text-sm">
+                            Locs & More Mobile Salon
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Testimonial 3 -->
+            <div class="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm fade-up"
+                 style="transition-delay: 0.2s;">
+
+                <div class="flex gap-1 mb-6 text-brand-blue">
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                </div>
+
+                <div class="text-4xl text-brand-blue font-serif mb-4">
+                    “
+                </div>
+
+                <p class="text-brand-muted leading-relaxed mb-8">
+                    Working with MDMagency gave our business a more cohesive
+                    digital presence. The team understood the importance of
+                    consistency and creating content that connects with our
+                    audience.
+                </p>
+
+                <div class="flex items-center gap-4">
+                    <div class="w-11 h-11 rounded-full bg-brand-dark flex items-center justify-center text-white font-semibold">
+                        L
+                    </div>
+
+                    <div>
+                        <h4 class="font-semibold text-brand-dark">
+                            Hendrik Pretorius
+                        </h4>
+                        <p class="text-sm text-brand-muted">
+                            Solar Business
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Bottom CTA -->
+        <div class="text-center mt-12 fade-up">
+            <p class="text-sm text-brand-muted">
+                Ready to build a stronger digital presence?
+            </p>
+
+            <a href="#contact"
+               class="inline-flex items-center gap-2 mt-4 text-brand-blue font-semibold hover:gap-3 transition-all">
+                Let's work together
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+        </div>
+
+    </div>
+</section>
+
+<!-- =====================================================
+     INSIGHTS
+===================================================== -->
+<section id="insights" class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+
+        <!-- Header -->
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-12">
+
+            <div class="fade-up">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-8 h-px bg-brand-blue"></div>
+
+                    <span class="text-xs font-bold tracking-[0.2em] uppercase text-brand-blue">
+                        Insights
+                    </span>
+                </div>
+
+                <h2 class="text-4xl lg:text-5xl font-medium leading-[1.1] tracking-tight">
+                    Ideas for growing<br>
+                    your brand.
+                </h2>
+            </div>
+
+            <button
+                onclick="openInsightsModal('all')"
+                class="inline-flex items-center gap-2 self-start lg:self-auto
+                       px-6 py-3 rounded-full border border-gray-200
+                       text-sm font-semibold
+                       hover:border-brand-blue hover:text-brand-blue
+                       transition-all fade-up">
+
+                All Articles
+
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </button>
+
+        </div>
+
+
+        <!-- Article Cards -->
+        <div class="grid md:grid-cols-3 gap-8">
+
+
+            <!-- ARTICLE 1 -->
+            <article
+                class="group cursor-pointer fade-up"
+                onclick="openInsightsModal('consistency')">
+
+                <div class="rounded-2xl overflow-hidden aspect-[4/3] mb-6 bg-gray-100">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&auto=format&fit=crop&q=85"
+                        alt="Business strategy and digital growth"
+                        class="w-full h-full object-cover
+                               group-hover:scale-105
+                               transition-transform duration-500">
+
+                </div>
+
+                <span class="text-brand-blue text-xs font-bold uppercase tracking-wider">
+                    Strategy
+                </span>
+
+                <h3 class="text-xl font-semibold mt-2 mb-3
+                           group-hover:text-brand-blue transition-colors">
+
+                    Why consistency beats virality for small businesses
+
+                </h3>
+
+                <p class="text-brand-muted text-sm leading-relaxed mb-4">
+
+                    A practical look at building a digital presence
+                    that compounds over time.
+
+                </p>
+
+                <div class="flex items-center justify-between text-xs text-brand-muted">
+
+                    <span>5 min read · Jun 2026</span>
+
+                    <span class="font-semibold text-brand-dark
+                                 group-hover:text-brand-blue
+                                 transition-colors">
+
+                        Read →
+                    </span>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- ARTICLE 2 -->
+            <article
+                class="group cursor-pointer fade-up"
+                style="transition-delay: 0.1s;"
+                onclick="openInsightsModal('instagram')">
+
+                <div class="rounded-2xl overflow-hidden aspect-[4/3] mb-6 bg-gray-100">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=800&auto=format&fit=crop&q=85"
+                        alt="Instagram social media marketing"
+                        class="w-full h-full object-cover
+                               group-hover:scale-105
+                               transition-transform duration-500">
+
+                </div>
+
+                <span class="text-brand-blue text-xs font-bold uppercase tracking-wider">
+                    Instagram
+                </span>
+
+                <h3 class="text-xl font-semibold mt-2 mb-3
+                           group-hover:text-brand-blue transition-colors">
+
+                    Building an Instagram feed that actually represents your brand
+
+                </h3>
+
+                <p class="text-brand-muted text-sm leading-relaxed mb-4">
+
+                    How to translate a brand identity into a
+                    scroll-stopping feed.
+
+                </p>
+
+                <div class="flex items-center justify-between text-xs text-brand-muted">
+
+                    <span>4 min read · Jun 2026</span>
+
+                    <span class="font-semibold text-brand-dark
+                                 group-hover:text-brand-blue
+                                 transition-colors">
+
+                        Read →
+                    </span>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- ARTICLE 3 -->
+            <article
+                class="group cursor-pointer fade-up"
+                style="transition-delay: 0.2s;"
+                onclick="openInsightsModal('content')">
+
+                <div class="rounded-2xl overflow-hidden aspect-[4/3] mb-6 bg-gray-100">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=800&auto=format&fit=crop&q=85"
+                        alt="Content planning and digital strategy"
+                        class="w-full h-full object-cover
+                               group-hover:scale-105
+                               transition-transform duration-500">
+
+                </div>
+
+                <span class="text-brand-blue text-xs font-bold uppercase tracking-wider">
+                    Content
+                </span>
+
+                <h3 class="text-xl font-semibold mt-2 mb-3
+                           group-hover:text-brand-blue transition-colors">
+
+                    A simple content system for busy business owners
+
+                </h3>
+
+                <p class="text-brand-muted text-sm leading-relaxed mb-4">
+
+                    A repeatable approach to planning content
+                    without burning out.
+
+                </p>
+
+                <div class="flex items-center justify-between text-xs text-brand-muted">
+
+                    <span>6 min read · Jun 2026</span>
+
+                    <span class="font-semibold text-brand-dark
+                                 group-hover:text-brand-blue
+                                 transition-colors">
+
+                        Read →
+                    </span>
+
+                </div>
+
+            </article>
+
+        </div>
+
+    </div>
+</section>
+
+<!-- =====================================================
+     INSIGHTS ARTICLE MODAL
+===================================================== -->
+
+<div
+    id="insights-modal"
+    class="fixed inset-0 z-[9999] hidden items-center justify-center
+           bg-black/60 backdrop-blur-sm p-4">
+
+    <div
+        id="insights-modal-content"
+        class="relative bg-white w-full max-w-3xl max-h-[90vh]
+               overflow-y-auto rounded-3xl shadow-2xl">
+
+        <!-- Close -->
+        <button
+            onclick="closeInsightsModal()"
+            class="absolute top-5 right-5 z-10
+                   w-10 h-10 rounded-full
+                   bg-white border border-gray-200
+                   flex items-center justify-center
+                   hover:bg-gray-100 transition-colors">
+
+            <i data-lucide="x" class="w-5 h-5"></i>
+
+        </button>
+
+
+        <!-- Article Image -->
+        <div class="h-64 md:h-80 overflow-hidden">
+
+            <img
+                id="modal-article-image"
+                src=""
+                alt=""
+                class="w-full h-full object-cover">
+
+        </div>
+
+
+        <!-- Article Content -->
+        <div class="p-8 md:p-12">
+
+            <span
+                id="modal-article-category"
+                class="text-brand-blue text-xs font-bold
+                       uppercase tracking-[0.2em]">
+            </span>
+
+            <h2
+                id="modal-article-title"
+                class="text-3xl md:text-4xl font-semibold
+                       leading-tight mt-3 mb-5">
+            </h2>
+
+            <div
+                id="modal-article-meta"
+                class="text-sm text-brand-muted mb-8">
+            </div>
+
+            <div
+                id="modal-article-body"
+                class="text-brand-muted leading-relaxed space-y-5">
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+    <!-- FAQ -->
+    <section class="py-24 bg-brand-gray">
+        <div class="max-w-3xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-16 fade-up">
+                <div class="flex items-center justify-center gap-3 mb-6">
+                    <div class="w-8 h-px bg-brand-blue"></div>
+                    <span class="text-xs font-bold tracking-[0.2em] uppercase text-brand-blue">FAQ</span>
+                    <div class="w-8 h-px bg-brand-blue"></div>
+                </div>
+                <h2 class="text-4xl lg:text-5xl font-medium leading-[1.1] tracking-tight">
+                    Questions,<br>answered.
+                </h2>
+            </div>
+
+            <div class="space-y-4">
+                <div class="faq-item bg-white rounded-2xl border border-gray-200 overflow-hidden fade-up">
+                    <button class="faq-trigger w-full flex items-center justify-between p-6 text-left">
+                        <span class="font-semibold text-brand-dark">What does a social media marketing agency do?</span>
+                        <span class="faq-icon w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center transition-all duration-300">
+                            <i data-lucide="plus" class="w-4 h-4"></i>
+                        </span>
+                    </button>
+                    <div class="faq-answer px-6">
+                        <p class="text-brand-muted text-sm leading-relaxed pb-6">
+                            A social media marketing agency plans, creates and manages content across social platforms — combining strategy, creative and consistent execution to help a business communicate professionally and grow its digital presence.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item bg-white rounded-2xl border border-gray-200 overflow-hidden fade-up">
+                    <button class="faq-trigger w-full flex items-center justify-between p-6 text-left">
+                        <span class="font-semibold text-brand-dark">How much does social media management cost?</span>
+                        <span class="faq-icon w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center transition-all duration-300">
+                            <i data-lucide="plus" class="w-4 h-4"></i>
+                        </span>
+                    </button>
+                    <div class="faq-answer px-6">
+                        <p class="text-brand-muted text-sm leading-relaxed pb-6">
+                            Pricing varies based on the scope of work, number of platforms and content volume. We tailor packages to your business needs — reach out for a custom quote.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item bg-white rounded-2xl border border-gray-200 overflow-hidden fade-up">
+                    <button class="faq-trigger w-full flex items-center justify-between p-6 text-left">
+                        <span class="font-semibold text-brand-dark">Which social media platforms does MDMagency manage?</span>
+                        <span class="faq-icon w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center transition-all duration-300">
+                            <i data-lucide="plus" class="w-4 h-4"></i>
+                        </span>
+                    </button>
+                    <div class="faq-answer px-6">
+                        <p class="text-brand-muted text-sm leading-relaxed pb-6">
+                            We work across Instagram, Facebook, LinkedIn, TikTok and X (Twitter). We recommend the right mix based on where your audience spends time.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item bg-white rounded-2xl border border-gray-200 overflow-hidden fade-up">
+                    <button class="faq-trigger w-full flex items-center justify-between p-6 text-left">
+                        <span class="font-semibold text-brand-dark">Can MDMagency create content for my business?</span>
+                        <span class="faq-icon w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center transition-all duration-300">
+                            <i data-lucide="plus" class="w-4 h-4"></i>
+                        </span>
+                    </button>
+                    <div class="faq-answer px-6">
+                        <p class="text-brand-muted text-sm leading-relaxed pb-6">
+                            Yes — content creation is one of our core services. We design graphics, write copy, produce reels and build full content calendars aligned to your brand.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item bg-white rounded-2xl border border-gray-200 overflow-hidden fade-up">
+                    <button class="faq-trigger w-full flex items-center justify-between p-6 text-left">
+                        <span class="font-semibold text-brand-dark">How long does it take to see results from social media marketing?</span>
+                        <span class="faq-icon w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center transition-all duration-300">
+                            <i data-lucide="plus" class="w-4 h-4"></i>
+                        </span>
+                    </button>
+                    <div class="faq-answer px-6">
+                        <p class="text-brand-muted text-sm leading-relaxed pb-6">
+                            Most clients notice improved consistency and engagement within the first month. Sustainable growth typically builds over 3–6 months of strategic effort.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item bg-white rounded-2xl border border-gray-200 overflow-hidden fade-up">
+                    <button class="faq-trigger w-full flex items-center justify-between p-6 text-left">
+                        <span class="font-semibold text-brand-dark">Does MDMagency work with small businesses?</span>
+                        <span class="faq-icon w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center transition-all duration-300">
+                            <i data-lucide="plus" class="w-4 h-4"></i>
+                        </span>
+                    </button>
+                    <div class="faq-answer px-6">
+                        <p class="text-brand-muted text-sm leading-relaxed pb-6">
+                            Absolutely. We work with businesses of all sizes and tailor our approach to fit your goals, budget and internal resources.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="contact" class="py-24 bg-brand-dark text-white text-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(0,122,255,0.15)_0%,_transparent_70%)]"></div>
+        <div class="max-w-4xl mx-auto px-6 lg:px-8 relative z-10 fade-up">
+            <h2 class="text-4xl lg:text-6xl font-medium leading-[1.1] tracking-tight mb-6">
+                Let's build something<br><span class="text-brand-blue italic font-serif">people remember.</span>
+            </h2>
+            <p class="text-gray-400 text-lg mb-10 max-w-xl mx-auto">
+                Tell us about your business, your goals and where you want your brand to go next.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="mailto:hello@mdmagency.co.za" class="inline-flex items-center gap-2 bg-brand-blue text-white px-8 py-4 rounded-full text-sm font-semibold btn-primary">
+                    Start a Conversation <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+                <a href="https://wa.me/27784436284" class="inline-flex items-center gap-2 bg-white text-brand-dark px-8 py-4 rounded-full text-sm font-semibold hover:bg-gray-100 transition-colors">
+                    WhatsApp Us
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark text-white border-t border-gray-800 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <div>
+                    <a href="#" class="flex items-center gap-2 mb-6">
+                        <span class="w-3 h-3 rounded-full bg-brand-blue"></span>
+                        <span class="text-xl font-bold tracking-tight">MDM <span class="text-brand-blue">agency</span></span>
+                    </a>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        A digital marketing and social media agency helping businesses build stronger, more consistent digital identities.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center hover:border-brand-blue hover:text-brand-blue transition-colors">
+                            <!-- Instagram -->
+<svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2">
+    <rect x="3" y="3" width="18" height="18" rx="5"/>
+    <circle cx="12" cy="12" r="4"/>
+    <circle cx="17.5" cy="6.5" r="1"/>
+</svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center hover:border-brand-blue hover:text-brand-blue transition-colors">
+                            <!-- TikTok -->
+<svg viewBox="0 0 24 24" class="w-5 h-5" fill="currentColor">
+    <path d="M16 3c.4 2.1 1.6 3.5 3.8 3.7v3.2c-1.5 0-2.8-.4-3.8-1.1v5.8c0 4-2.7 6.4-6.1 6.4-3.3 0-5.7-2.4-5.7-5.6 0-3.4 2.7-5.8 6.2-5.8.3 0 .6 0 .9.1v3.3c-.3-.1-.6-.1-.9-.1-1.5 0-2.8 1-2.8 2.5 0 1.4 1 2.4 2.4 2.4 1.6 0 2.5-1 2.5-2.8V3H16z"/>
+</svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center hover:border-brand-blue hover:text-brand-blue transition-colors">
+                            <i data-lucide="mail"class="w-4 h-4"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center hover:border-brand-blue hover:text-brand-blue transition-colors">
+                            <!-- LinkedIn -->
+<svg viewBox="0 0 24 24" class="w-5 h-5" fill="currentColor">
+    <path d="M5 3a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM3 8h4v13H3V8zm6 0h4v2c.8-1.4 2.2-2.4 4.2-2.4 4.1 0 4.8 2.7 4.8 6.2V21h-4v-6.4c0-1.5 0-3.5-2.1-3.5s-2.4 1.6-2.4 3.4V21H9V8z"/>
+</svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-gray-400 mb-6">Navigation</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#home" class="text-sm text-gray-300 hover:text-white transition-colors">Home</a></li>
+                        <li><a href="#about" class="text-sm text-gray-300 hover:text-white transition-colors">About</a></li>
+                        <li><a href="#services" class="text-sm text-gray-300 hover:text-white transition-colors">Services</a></li>
+                        <li><a href="#pricing" class="text-sm text-gray-300 hover:text-white transition-colors">Pricing</a></li>
+                        <li><a href="#work" class="text-sm text-gray-300 hover:text-white transition-colors">Work</a></li>
+                        <li><a href="#case-studies" class="text-sm text-gray-300 hover:text-white transition-colors">Case Studies</a></li>
+                        <li><a href="#insights" class="text-sm text-gray-300 hover:text-white transition-colors">Insights</a></li>
+                        <li><a href="#contact" class="text-sm text-gray-300 hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-gray-400 mb-6">Services</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white transition-colors">Social Media Management</a></li>
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white transition-colors">Content Creation</a></li>
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white transition-colors">Social Media Strategy</a></li>
+                        <li><a href="#services" class="text-sm text-gray-300 hover:text-white transition-colors">Website Design &amp; Development</a></li>
+                        <li><a href="#services" class="text-sm text-gray-300 hover:text-white transition-colors">AI &amp; Business Automation</a></li>
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white transition-colors">Digital Growth</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-gray-400 mb-6">Contact</h4>
+                    <ul class="space-y-3">
+                        <li class="text-sm text-gray-300">Email: <a href="mailto:info@mdmagency.co.za" class="hover:text-white transition-colors">info@mdmagency.co.za</a> </li>
+                        <li class="text-sm text-gray-300">Phone: +27 78 443 6284  </li>
+                        <li class="text-sm text-gray-300">WhatsApp: +27 78 443 6284 </li>
+                        <li class="text-sm text-gray-300">Location: South Africa, Centurion </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-xs text-gray-500">© 2026 MDMagency Agency. All rights reserved.</p>
+                <p class="text-xs text-gray-500">Built for brands that want to be remembered.</p>
+            </div>
+            <p class="text-xs tracking-wide text-gray-400">
+    Digital presence crafted by
+    <a 
+        href="https://www.casadililly.co.za/" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        class="font-semibold text-brand-blue hover:text-brand-dark transition-colors"
+    >
+        Casa di Lilly
+    </a>
+    <span class="mx-1">•</span>
+    Strategic Digital Partner
+</p>
+
+          <a href="terms.html">
+    Terms & Conditions
+</a>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 w-12 h-12 bg-brand-dark text-white rounded-full shadow-lg flex items-center justify-center translate-y-20 opacity-0 transition-all duration-300 hover:bg-brand-blue z-40">
+        <i data-lucide="chevron-up" class="w-5 h-5"></i>
+    </button>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-trigger').forEach(trigger => {
+            trigger.addEventListener('click', () => {
+                const item = trigger.closest('.faq-item');
+                const isOpen = item.classList.contains('open');
+                
+                // Close all
+                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+                
+                // Open clicked if it wasn't open
+                if (!isOpen) {
+                    item.classList.add('open');
+                }
+            });
+        });
+
+        // Swipeable Our Work galleries
+        document.querySelectorAll('.work-gallery').forEach((gallery) => {
+            const slides = Array.from(gallery.querySelectorAll('.work-gallery-image'));
+            if (slides.length <= 1) return;
+
+            const prev = document.createElement('button');
+            prev.type = 'button';
+            prev.className = 'work-gallery-control prev';
+            prev.setAttribute('aria-label', 'Previous project image');
+            prev.innerHTML = '<i data-lucide="chevron-left" class="w-5 h-5"></i>';
+
+            const next = document.createElement('button');
+            next.type = 'button';
+            next.className = 'work-gallery-control next';
+            next.setAttribute('aria-label', 'Next project image');
+            next.innerHTML = '<i data-lucide="chevron-right" class="w-5 h-5"></i>';
+
+            const dots = document.createElement('div');
+            dots.className = 'work-gallery-dots';
+            dots.setAttribute('aria-label', 'Gallery image navigation');
+
+            slides.forEach((slide, index) => {
+                const dot = document.createElement('button');
+                dot.type = 'button';
+                dot.className = 'work-gallery-dot' + (index === 0 ? ' active' : '');
+                dot.setAttribute('aria-label', `Go to image ${index + 1}`);
+                dot.addEventListener('click', () => {
+                    slide.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+                });
+                dots.appendChild(dot);
+            });
+
+            const hint = document.createElement('div');
+            hint.className = 'work-gallery-hint';
+            hint.textContent = 'Swipe to see more';
+
+            const updateGalleryState = () => {
+                const index = Math.round(gallery.scrollLeft / gallery.clientWidth);
+                dots.querySelectorAll('.work-gallery-dot').forEach((dot, i) => {
+                    dot.classList.toggle('active', i === index);
+                });
+                prev.style.opacity = index === 0 ? '0.45' : '1';
+                next.style.opacity = index === slides.length - 1 ? '0.45' : '1';
+                hint.style.opacity = index === 0 ? '1' : '0';
+            };
+
+            prev.addEventListener('click', () => {
+                gallery.scrollBy({ left: -gallery.clientWidth, behavior: 'smooth' });
+            });
+            next.addEventListener('click', () => {
+                gallery.scrollBy({ left: gallery.clientWidth, behavior: 'smooth' });
+            });
+            gallery.addEventListener('scroll', updateGalleryState, { passive: true });
+
+            gallery.append(prev, next, dots, hint);
+            updateGalleryState();
+        });
+        if (window.lucide) lucide.createIcons();
+
+        // Portfolio Filter
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active button
+                filterBtns.forEach(b => {
+                    b.classList.remove('bg-brand-dark', 'text-white');
+                    b.classList.add('bg-white', 'text-brand-dark');
+                });
+                btn.classList.remove('bg-white', 'text-brand-dark');
+                btn.classList.add('bg-brand-dark', 'text-white');
+
+                const filter = btn.dataset.filter;
+
+                portfolioItems.forEach(item => {
+                    const categories = item.dataset.category.split(' ');
+                    if (filter === 'all' || categories.includes(filter)) {
+                        item.style.display = 'block';
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'scale(1)';
+                        }, 50);
+                    } else {
+                        item.style.opacity = '0';
+                        item.style.transform = 'scale(0.95)';
+                        setTimeout(() => {
+                            item.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+
+        // Scroll Animations (Intersection Observer)
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+        document.querySelectorAll('.process-line').forEach(el => observer.observe(el));
+
+        // Back to Top Button
+        const backToTopBtn = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 600) {
+                backToTopBtn.classList.remove('translate-y-20', 'opacity-0');
+            } else {
+                backToTopBtn.classList.add('translate-y-20', 'opacity-0');
+            }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+
+    <script>
+
+const insightsArticles = {
+
+    consistency: {
+
+        category: "Strategy",
+
+        title: "Why consistency beats virality for small businesses",
+
+        meta: "5 min read · Jun 2026",
+
+        image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=1000&auto=format&fit=crop&q=85",
+
+        body: `
+            <p>
+                Building a strong digital presence isn't always about
+                creating one viral post. For many small businesses,
+                sustainable growth comes from showing up consistently
+                with useful, relevant and recognisable content.
+            </p>
+
+            <p>
+                Consistency allows your audience to become familiar
+                with your brand, understand what you offer and recognise
+                your communication style over time.
+            </p>
+
+            <h3 class="text-xl font-semibold text-brand-dark pt-4">
+                Build a system, not just individual posts
+            </h3>
+
+            <p>
+                Instead of relying on inspiration every time you need
+                to publish something, create a content system that
+                gives your business structure.
+            </p>
+
+            <p>
+                A clear content calendar, defined content pillars and
+                consistent visual identity can make social media easier
+                to manage while creating a more professional experience
+                for your audience.
+            </p>
+
+            <h3 class="text-xl font-semibold text-brand-dark pt-4">
+                Consistency creates trust
+            </h3>
+
+            <p>
+                Your audience should be able to recognise your business
+                across your digital channels. Over time, consistent
+                communication helps turn visibility into familiarity
+                and familiarity into trust.
+            </p>
+        `
+    },
+
+
+    instagram: {
+
+        category: "Instagram",
+
+        title: "Building an Instagram feed that actually represents your brand",
+
+        meta: "4 min read · Jun 2026",
+
+        image: "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=1000&auto=format&fit=crop&q=85",
+
+        body: `
+            <p>
+                Your Instagram feed is often one of the first places
+                potential customers experience your brand. A strong feed
+                should therefore do more than simply look attractive.
+            </p>
+
+            <p>
+                Every visual should contribute to a recognisable identity
+                and communicate something about the business behind it.
+            </p>
+
+            <h3 class="text-xl font-semibold text-brand-dark pt-4">
+                Start with your brand identity
+            </h3>
+
+            <p>
+                Before creating content, establish the visual language
+                of your brand. Consider your colours, typography,
+                photography style, tone and overall personality.
+            </p>
+
+            <h3 class="text-xl font-semibold text-brand-dark pt-4">
+                Create content pillars
+            </h3>
+
+            <p>
+                Content pillars help prevent your feed from becoming
+                repetitive. They can include educational content,
+                promotional content, behind-the-scenes content,
+                customer-focused content and brand storytelling.
+            </p>
+
+            <h3 class="text-xl font-semibold text-brand-dark pt-4">
+                Make every post feel connected
+            </h3>
+
+            <p>
+                Your posts don't need to look identical. They simply
+                need to feel like they belong to the same brand.
+                Consistency in design and messaging helps create a
+                stronger overall digital presence.
+            </p>
+        `
+    },
+
+
+    content: {
+
+        category: "Content",
+
+        title: "A simple content system for busy business owners",
+
+        meta: "6 min read · Jun 2026",
+
+        image: "https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=1000&auto=format&fit=crop&q=85",
+
+        body: `
+            <p>
+                Content creation can quickly become overwhelming when
+                there is no clear system behind it. Business owners are
+                often trying to manage customers, operations and marketing
+                at the same time.
+            </p>
+
+            <p>
+                A simple content system can make the process more
+                manageable and help you stay consistent without constantly
+                asking yourself what to post next.
+            </p>
+
+            <h3 class="text-xl font-semibold text-brand-dark pt-4">
+                Choose your content pillars
+            </h3>
+
+            <p>
+                Start by identifying a few recurring topics that are
+                relevant to your business and your audience. These become
+                the foundation of your content calendar.
+            </p>
+
+            <h3 class="text-xl font-semibold text-brand-dark pt-4">
+                Plan before you create
+            </h3>
+
+            <p>
+                Instead of creating content one post at a time, dedicate
+                time to planning several posts together. This allows you
+                to create a more balanced and intentional content mix.
+            </p>
+
+            <h3 class="text-xl font-semibold text-brand-dark pt-4">
+                Repurpose what already works
+            </h3>
+
+            <p>
+                A single useful idea can often become multiple pieces of
+                content. A social media post can become a short video,
+                an educational carousel, an email or a longer article.
+            </p>
+
+            <p>
+                The goal isn't to create more content simply for the sake
+                of posting. The goal is to create useful content
+                consistently and efficiently.
+            </p>
+        `
+    }
+
+};
+
+
+function openInsightsModal(articleKey) {
+
+    if (articleKey === "all") {
+        articleKey = "consistency";
+    }
+
+    const article = insightsArticles[articleKey];
+
+    if (!article) return;
+
+    document.getElementById("modal-article-category").textContent =
+        article.category;
+
+    document.getElementById("modal-article-title").textContent =
+        article.title;
+
+    document.getElementById("modal-article-meta").textContent =
+        article.meta;
+
+    document.getElementById("modal-article-image").src =
+        article.image;
+
+    document.getElementById("modal-article-image").alt =
+        article.title;
+
+    document.getElementById("modal-article-body").innerHTML =
+        article.body;
+
+    const modal = document.getElementById("insights-modal");
+
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+
+    document.body.style.overflow = "hidden";
+
+    if (typeof lucide !== "undefined") {
+        lucide.createIcons();
+    }
+}
+
+
+function closeInsightsModal() {
+
+    const modal = document.getElementById("insights-modal");
+
+    modal.classList.add("hidden");
+    modal.classList.remove("flex");
+
+    document.body.style.overflow = "";
+
+}
+
+
+/* Close when clicking outside the article */
+document.getElementById("insights-modal").addEventListener(
+    "click",
+    function(event) {
+
+        if (event.target === this) {
+            closeInsightsModal();
+        }
+
+    }
+);
+
+
+/* Close with Escape key */
+document.addEventListener("keydown", function(event) {
+
+    if (event.key === "Escape") {
+        closeInsightsModal();
+    }
+
+});
+
+</script>
+
+</body>
+</html>
